@@ -1,0 +1,9 @@
+*.vcxproj.user
+*.log
+*.obj
+*.exe.repice
+*.idb
+*.tlog
+*.exe
+*.ilk
+*.pdb
