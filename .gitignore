@@ -1,0 +1,13 @@
+*.vcxproj.user
+*.log
+*.obj
+*.exe.recipe
+*.idb
+*.tlog
+*.exe
+*.ilk
+*.pdb
+*.suo
+.VC.db
+*.ipch
+*.obj.enc
