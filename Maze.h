@@ -1,4 +1,6 @@
 #pragma once
+#include "MTreeNode.h"
+
 class MCell
 {
 private:
@@ -7,6 +9,7 @@ private:
 	bool m_right = false;
 	friend class Maze;
 public:
+	MTreeNode node = *MTreeNode::beginTree(node.i(),node.j());
 	bool right();
 	bool down();
 };

@@ -1,4 +1,5 @@
 ﻿#include "Maze.h"
+#include "MTreeNode.h"
 #include <iostream>
 
 MCell::MCell() {
@@ -27,10 +28,10 @@ const MCell& Maze::cell(int i, int j) const {
 }
 
 bool Maze::hasConnection(int i1, int j1, int i2, int j2) {
-	if ((i2 == i1 + 1 & j2 == j1) & m_field[i1 * vertical + j1].right()) {
+	if ((j2 == j1 && i2 == i1 + 1) && m_field[i1 * vertical + j1].right()) {
 		return true;
 	}
-	if ((i2 == i1 & j2 == j1 + 1) & m_field[i1 * vertical + j1].down()) {
+	if (m_field[i1 * vertical + j1].down() && (j2 == j1 + 1 && i2 == i1)) {
 		return true;
 	}
 	return false;
@@ -43,11 +44,33 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2) {
 	i1 = std::min(i1, i2);
 	j2 = std::max(m2, j2);
 	i2 = std::max(m1, i2);
-	if ((i2 == i1 + 1) & (j2 == j1) & (i2 < vertical * horizontal - 1)) {
+	if ((i2 == i1 + 1) && (j2 == j1) && (i2 < vertical * horizontal - 1)) {
+		if (!m_field[i1 * vertical + j1].m_down && !m_field[i1 * vertical + j1].m_right && m_field[i1 * vertical + j1].node.parent() == nullptr)
+		{
+			m_field[i1 * vertical + j1].node = *m_field[i1 * vertical + j1].node.beginTree(i1, j1);
+			m_field[i1 * vertical + j1].node.addChild(i2, j2);
+			m_field[i2 * vertical + j2].node = *m_field[i1 * vertical + j1].node.hasChild(i2, j2);
+		}
+		else
+		{
+			m_field[i1 * vertical + j1].node.addChild(i2, j2);
+			m_field[i2 * vertical + j2].node = *m_field[i1 * vertical + j1].node.hasChild(i2, j2);
+		}
 		m_field[i1 * vertical + j1].m_down = true;
 		return true;
 	}
-	if ((i2 == i1) & (j2 == j1 + 1) & (i2 < vertical * horizontal - 1)) {
+	if ((i2 == i1) && (j2 == j1 + 1) && (i2 < vertical * horizontal - 1)) {
+		if (!m_field[i1 * vertical + j1].m_down && !m_field[i1 * vertical + j1].m_right && m_field[i1 * vertical + j1].node.parent() == nullptr)
+		{
+			m_field[i1 * vertical + j1].node = *m_field[i1 * vertical + j1].node.beginTree(i1, j1);
+			m_field[i1 * vertical + j1].node.addChild(i2, j2);
+			m_field[i2 * vertical + j2].node = *m_field[i1 * vertical + j1].node.hasChild(i2, j2);
+		}
+		else
+		{
+			m_field[i1 * vertical + j1].node.addChild(i2, j2);
+			m_field[i2 * vertical + j2].node = *m_field[i1 * vertical + j1].node.hasChild(i2,j2);
+		}
 		m_field[i1 * vertical + j1].m_right = true;
 		return true;
 	}
@@ -75,9 +98,9 @@ void Maze::printMaze() {
 			way += Down;
 		if (m_field[i].right())
 			way += Right;
-		if (i - 1 >= 0 & m_field[i - 1].right())
+		if (i - 1 >= 0 && m_field[i - 1].right())
 			way += Left;
-		if (i - vertical >= 0 & m_field[i - vertical].down())
+		if (i - vertical >= 0 && m_field[i - vertical].down())
 			way += UP;
 		switch (way)
 		{
@@ -118,5 +141,13 @@ void Maze::printMaze() {
 			std::cout << "0";
 			break;
 		}
+	}
+	std::cout << std::endl;
+	for (int i = 0; i < horizontal * vertical; i++)
+	{		
+		if (i % 5 == 0)
+			std::cout << std::endl;
+		std::cout << m_field[i].node.distance() << " ";
+
 	}
 }
