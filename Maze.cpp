@@ -78,12 +78,18 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2) {
 }
 
 bool Maze::removeConnection(int i1, int j1, int i2, int j2) {
+	int m1 = i1;
+	int m2 = j1;
+	j1 = std::min(j1, j2);
+	i1 = std::min(i1, i2);
+	j2 = std::max(m2, j2);
+	i2 = std::max(m1, i2);
 	if ((i2 == i1 + 1) &(j2 == j1)) {
-		m_field[i1 * vertical + j1].m_right = false;
+		m_field[i1 * vertical + j1].m_down = false;
 		return true;
 	}
 	if ((i2 == i1) & (j2 == j1 + 1)) {
-		m_field[i1 * vertical + j1].m_down = false;
+		m_field[i1 * vertical + j1].m_right = false;
 		return true;
 	}
 	return false;
