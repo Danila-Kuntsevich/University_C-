@@ -43,11 +43,11 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2) {
 	i1 = std::min(i1, i2);
 	j2 = std::max(m2, j2);
 	i2 = std::max(m1, i2);
-	if ((i2 == i1 + 1) && (j2 == j1) && (i2 < vertical * horizontal - 1)) {
+	if ((i2 == i1 + 1) && (j2 == j1) && (i2 < vertical) && i1 >= 0) {
 		m_field[i1 * vertical + j1].m_down = true;
 		return true;
 	}
-	if ((i2 == i1) && (j2 == j1 + 1) && (i2 < vertical * horizontal - 1)) {
+	if ((i2 == i1) && (j2 - 1 == j1) && (j2 < horizontal) && j2 >= 0) {
 		m_field[i1 * vertical + j1].m_right = true;
 		return true;
 	}

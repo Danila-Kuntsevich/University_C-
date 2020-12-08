@@ -13,6 +13,5 @@ int main()
 	Maze1.makeConnection(2, 3, 3, 3);
 	Maze1.makeConnection(3, 3, 3, 4);
 	Maze1.makeConnection(4, 4, 3, 4);
-	Maze1.makeConnection(1, 1, 2, 1);
 	Maze1.printMaze();
 }
