@@ -2,18 +2,6 @@
 #include "MTreeNode.h"
 #include <iostream>
 
-MCell::MCell() {
-
-}
-
-bool MCell::right() {
-	return m_right;
-}
-
-bool MCell::down() {
-	return m_down;
-}
-
 Maze::Maze(int N, int M) {
 	horizontal = M;
 	vertical = N;
@@ -44,7 +32,7 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2) {
 	i1 = std::min(i1, i2);
 	j2 = std::max(m2, j2);
 	i2 = std::max(m1, i2);
-	if ((i2 == i1 + 1) && (j2 == j1) && (i2 < vertical * horizontal - 1)) {
+	if ((i2 == i1 + 1) && (j2 == j1) && (i2 < vertical) && i1 >= 0) {
 		if (!m_field[i1 * vertical + j1].m_down && !m_field[i1 * vertical + j1].m_right && m_field[i1 * vertical + j1].node.parent() == nullptr)
 		{
 			m_field[i1 * vertical + j1].node = *m_field[i1 * vertical + j1].node.beginTree(i1, j1);
@@ -59,7 +47,7 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2) {
 		m_field[i1 * vertical + j1].m_down = true;
 		return true;
 	}
-	if ((i2 == i1) && (j2 == j1 + 1) && (i2 < vertical * horizontal - 1)) {
+	if ((i2 == i1) && (j2 - 1 == j1) && (j2 < horizontal) && j2 >= 0) {
 		if (!m_field[i1 * vertical + j1].m_down && !m_field[i1 * vertical + j1].m_right && m_field[i1 * vertical + j1].node.parent() == nullptr)
 		{
 			m_field[i1 * vertical + j1].node = *m_field[i1 * vertical + j1].node.beginTree(i1, j1);
@@ -78,18 +66,12 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2) {
 }
 
 bool Maze::removeConnection(int i1, int j1, int i2, int j2) {
-	int m1 = i1;
-	int m2 = j1;
-	j1 = std::min(j1, j2);
-	i1 = std::min(i1, i2);
-	j2 = std::max(m2, j2);
-	i2 = std::max(m1, i2);
 	if ((i2 == i1 + 1) &(j2 == j1)) {
-		m_field[i1 * vertical + j1].m_down = false;
+		m_field[i1 * vertical + j1].m_right = false;
 		return true;
 	}
 	if ((i2 == i1) & (j2 == j1 + 1)) {
-		m_field[i1 * vertical + j1].m_right = false;
+		m_field[i1 * vertical + j1].m_down = false;
 		return true;
 	}
 	return false;
