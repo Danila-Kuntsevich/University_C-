@@ -1,18 +1,6 @@
 ﻿#include "MazeCell.h"
 #include <iostream>
 
-MCell::MCell() {
-
-}
-
-bool MCell::right() {
-	return m_right;
-}
-
-bool MCell::down() {
-	return m_down;
-}
-
 Maze::Maze(int N, int M) {
 	horizontal = M;
 	vertical = N;
