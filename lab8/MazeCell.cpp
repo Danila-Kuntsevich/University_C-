@@ -1,5 +1,6 @@
 ﻿#include "MazeCell.h"
 #include <iostream>
+#include <algorithm>
 
 Maze::Maze(int N, int M) {
 	horizontal = M;
