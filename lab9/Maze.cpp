@@ -1,6 +1,7 @@
 ﻿#include "Maze.h"
 #include "MTreeNode.h"
 #include <iostream>
+#include <algorithm>
 
 Maze::Maze(int N, int M) {
 	horizontal = M;
