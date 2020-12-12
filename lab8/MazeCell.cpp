@@ -6,14 +6,15 @@ Maze::Maze(int N, int M) {
 	horizontal = M;
 	vertical = N;
 	m_field = new MCell[horizontal * vertical];
-}
+};
+
 Maze::~Maze() {
 	delete[] m_field;
-}
+};
 
 const MCell& Maze::cell(int i, int j) const {
 	return m_field[i * vertical + j];
-}
+};
 
 bool Maze::hasConnection(int i1, int j1, int i2, int j2) {
 	if ((i2 == i1 + 1 && j2 == j1) & m_field[i1 * vertical + j1].right()) {
@@ -23,7 +24,7 @@ bool Maze::hasConnection(int i1, int j1, int i2, int j2) {
 		return true;
 	}
 	return false;
-}
+};
 
 bool Maze::makeConnection(int i1, int j1, int i2, int j2) {
 	int m1 = i1;
@@ -41,7 +42,7 @@ bool Maze::makeConnection(int i1, int j1, int i2, int j2) {
 		return true;
 	}
 	return false;
-}
+};
 
 bool Maze::removeConnection(int i1, int j1, int i2, int j2) {
 	int m1 = i1;
@@ -59,9 +60,15 @@ bool Maze::removeConnection(int i1, int j1, int i2, int j2) {
 		return true;
 	}
 	return false;
-}
+};
 
 void Maze::printMaze() {
+	enum Connetcion {
+		UP = 1,
+		Down = 2,
+		Right = 4,
+		Left = 8,
+	};
 	for (int i = 0; i < (horizontal * vertical); i++) {
 		if (i % horizontal == 0)
 			std::cout << std::endl;
@@ -114,4 +121,4 @@ void Maze::printMaze() {
 			break;
 		}
 	}
-}
+};
