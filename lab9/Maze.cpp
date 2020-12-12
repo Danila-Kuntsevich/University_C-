@@ -85,6 +85,12 @@ bool Maze::removeConnection(int i1, int j1, int i2, int j2) {
 }
 
 void Maze::printMaze() {
+	enum Connetcion {
+		UP = 1,
+		Down = 2,
+		Right = 4,
+		Left = 8
+	};
 	for (int i = 0; i < (horizontal * vertical); i++) {
 		if (i % horizontal == 0)
 			std::cout << std::endl;

@@ -1,6 +1,7 @@
 #pragma once
 #include "MTreeNode.h"
 #include "MCell.h"
+class MCell;
 
 class Maze
 {
@@ -8,12 +9,6 @@ private:
 	MCell* m_field = nullptr;
 	int horizontal = 0;
 	int vertical = 0;
-	enum Connetcion {
-		UP = 1,
-		Down = 2,
-		Right = 4,
-		Left = 8,
-	};
 public:
 	Maze(int, int);
 	~Maze();

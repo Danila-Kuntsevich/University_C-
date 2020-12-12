@@ -1,5 +1,6 @@
 #pragma once
 #include "MTreeNode.h"
+class MTreeNode;
 
 class MCell
 {
